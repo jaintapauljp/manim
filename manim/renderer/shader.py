@@ -29,6 +29,21 @@ def get_shader_code_from_file(file_path):
         return file_path_to_code_map[file_path]
     with open(file_path) as f:
         source = f.read()
+        '''
+        ***************** OpenRefactory Warning *****************
+        Possible Regex injection!
+        Path:
+        	File: shader.py, Line: 31
+        		source = f.read()
+        		Variable source is assigned a tainted value from an external source.
+        	File: shader.py, Line: 32
+        		include_lines = re.finditer(
+        		            r"^#include (?P<include_path>.*\.glsl)$",
+        		            source,
+        		            flags=re.MULTILINE,
+        		        )
+        		Tainted information is used in a sink.
+        '''
         include_lines = re.finditer(
             r"^#include (?P<include_path>.*\.glsl)$",
             source,
